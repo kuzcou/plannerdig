@@ -48,11 +48,13 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 import Diario from './pages/Diario';
+import Kanban from './pages/Kanban';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Diario": Diario,
+    "Kanban": Kanban,
 }
 
 export const pagesConfig = {
