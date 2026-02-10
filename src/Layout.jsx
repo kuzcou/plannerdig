@@ -4,6 +4,14 @@ import { createPageUrl } from './utils';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import {
     Calendar,
     BookOpen,
     Target,
@@ -12,7 +20,8 @@ import {
     LogOut,
     Menu,
     X,
-    Kanban
+    Kanban,
+    Home as HomeIcon
 } from 'lucide-react';
 
 export default function Layout({ children, currentPageName }) {
@@ -30,6 +39,21 @@ export default function Layout({ children, currentPageName }) {
         { name: 'Relatórios', path: 'Relatorios', icon: TrendingUp },
         { name: 'Metas', path: 'Metas', icon: Target },
     ];
+
+    const getBreadcrumbs = () => {
+        const breadcrumbs = [{ name: 'Home', path: 'Home' }];
+        
+        if (currentPageName && currentPageName !== 'Home') {
+            const currentNav = navItems.find(item => item.path === currentPageName);
+            if (currentNav) {
+                breadcrumbs.push({ name: currentNav.name, path: currentNav.path });
+            }
+        }
+        
+        return breadcrumbs;
+    };
+
+    const breadcrumbs = getBreadcrumbs();
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -121,6 +145,38 @@ export default function Layout({ children, currentPageName }) {
                     )}
                 </div>
             </header>
+
+            {/* Breadcrumbs */}
+            {currentPageName && currentPageName !== 'Home' && (
+                <div className="bg-white border-b border-slate-200">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                {breadcrumbs.map((crumb, index) => (
+                                    <React.Fragment key={crumb.path}>
+                                        {index > 0 && <BreadcrumbSeparator />}
+                                        <BreadcrumbItem>
+                                            {index === breadcrumbs.length - 1 ? (
+                                                <BreadcrumbPage className="flex items-center gap-2">
+                                                    {index === 0 && <HomeIcon className="w-4 h-4" />}
+                                                    {crumb.name}
+                                                </BreadcrumbPage>
+                                            ) : (
+                                                <BreadcrumbLink asChild>
+                                                    <Link to={createPageUrl(crumb.path)} className="flex items-center gap-2">
+                                                        {index === 0 && <HomeIcon className="w-4 h-4" />}
+                                                        {crumb.name}
+                                                    </Link>
+                                                </BreadcrumbLink>
+                                            )}
+                                        </BreadcrumbItem>
+                                    </React.Fragment>
+                                ))}
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+                </div>
+            )}
 
             {/* Main Content */}
             <main>{children}</main>
