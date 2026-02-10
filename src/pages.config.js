@@ -49,12 +49,14 @@
  */
 import Diario from './pages/Diario';
 import Kanban from './pages/Kanban';
+import Relatorios from './pages/Relatorios';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
     "Diario": Diario,
     "Kanban": Kanban,
+    "Relatorios": Relatorios,
 }
 
 export const pagesConfig = {

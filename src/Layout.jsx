@@ -27,8 +27,8 @@ export default function Layout({ children, currentPageName }) {
         { name: 'Atividades', path: 'Atividades', icon: Calendar },
         { name: 'Diário', path: 'Diario', icon: BookOpen },
         { name: 'Kanban', path: 'Kanban', icon: Kanban },
+        { name: 'Relatórios', path: 'Relatorios', icon: TrendingUp },
         { name: 'Metas', path: 'Metas', icon: Target },
-        { name: 'Progresso', path: 'Progresso', icon: TrendingUp },
     ];
 
     return (
